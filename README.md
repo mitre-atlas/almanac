@@ -1,3 +1,3 @@
-# Compass
+# Almanac
 
-Plugin supplying CALDERA with visualizations
+ATLAS version of the ATT&CK plugin supplying CALDERA with visualizations
