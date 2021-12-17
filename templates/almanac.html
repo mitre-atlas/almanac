@@ -1,7 +1,7 @@
-<div id="compassPage" x-data="alpineCompass()">
+<div id="almanacPage" x-data="alpineAlmanac()">
     <div>
         <div x-data="{showText: false}">
-            <h2 x-on:mouseover="showText = true" x-on:mouseleave="showText = false">Compass<sub x-show="showText" class="is-size-7 pl-1">find your way</sub></h2>
+            <h2 x-on:mouseover="showText = true" x-on:mouseleave="showText = false">Almanac<sub x-show="showText" class="is-size-7 pl-1">find your way</sub></h2>
         </div>
         <p>Generate a layer file for any adversary, which you can overlay on the matrix below
             <b>OR</b> Create an adversary in the matrix, then
@@ -55,7 +55,7 @@
         </div>
     </div>
     <div>
-        <iframe src="https://mitre-attack.github.io/attack-navigator/enterprise/" class="frame">
+        <iframe src="https://mitre.github.io/atlas-navigator" class="frame">
         </iframe>
     </div>
 
@@ -108,7 +108,7 @@
 </div>
 
 <script>
-    function alpineCompass() {
+    function alpineAlmanac() {
         return {
             openModal: false,
             selectedAdversaryID: '',
@@ -134,7 +134,7 @@
                     index: 'adversary',
                     adversary_id: this.selectedAdversaryID
                 } : { index: 'all' };
-                restRequest('POST', postData, downloadObjectAsJson, '/plugin/compass/layer');
+                restRequest('POST', postData, downloadObjectAsJson, '/plugin/almanac/layer');
             },
 
             uploadAdversaryLayer(e) {
@@ -142,7 +142,7 @@
 
                 let formData = new FormData();
                 formData.append('file', e.files[0]);
-                fetch('/plugin/compass/adversary', {
+                fetch('/plugin/almanac/adversary', {
                     method: 'POST',
                     body: formData
                 })
@@ -163,7 +163,7 @@
     }
 </script>
 <style>
-    #compassPage .frame {
+    #almanacPage .frame {
         display: flex;
         width: 100%;
         border-radius: 5px;

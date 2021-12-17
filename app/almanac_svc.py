@@ -8,7 +8,7 @@ from app.service.auth_svc import for_all_public_methods, check_authorization
 
 
 @for_all_public_methods(check_authorization)
-class CompassService:
+class AlmanacService:
 
     def __init__(self, services):
         self.services = services
@@ -16,7 +16,7 @@ class CompassService:
         self.data_svc = self.services.get('data_svc')
         self.rest_svc = self.services.get('rest_svc')
 
-    @template('compass.html')
+    @template('almanac.html')
     async def splash(self, request):
         adversaries = [a.display for a in await self.data_svc.locate('adversaries')]
         return dict(adversaries=sorted(adversaries, key=lambda a: a['name']))
@@ -24,10 +24,10 @@ class CompassService:
     @staticmethod
     def _get_layer_boilerplate(name, description):
         return dict(
-            version='3.0',
+            version='4.2',
             name=name,
             description=description,
-            domain='mitre-enterprise',
+            domain='atlas-v2-+-enterprise-v9-atlas',
             techniques=[],
             legendItems=[],
             showTacticRowBackground=True,
@@ -61,6 +61,7 @@ class CompassService:
         display_name, description, abilities = await ability_functions[request_body['index']](request_body)
 
         layer = self._get_layer_boilerplate(name=display_name, description=description)
+
         for ability in abilities:
             technique = dict(
                 techniqueID=ability['technique_id'],
@@ -131,7 +132,7 @@ class CompassService:
         try:
             adversary_data = dict(id=str(uuid.uuid4()),
                                   name=request_body.get('name'),
-                                  description=request_body.get('description', '') + ' (created by compass)')
+                                  description=request_body.get('description', '') + ' (created by almanac)')
             adversary_techniques = self._extract_techniques(request_body)
             adversary_data['atomic_ordering'], unmatched_techniques = await self._build_adversary(adversary_techniques)
             adversary = await self.rest_svc.persist_adversary(dict(access=[self.rest_svc.Access.RED]), adversary_data)

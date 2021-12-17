@@ -1,13 +1,13 @@
-from plugins.compass.app.compass_svc import CompassService
+from plugins.almanac.app.almanac_svc import AlmanacService
 
-name = 'Compass'
+name = 'Almanac'
 description = 'Use the compass to Navigate CALDERA'
-address = '/plugin/compass/gui'
+address = '/plugin/almanac/gui'
 
 
 async def enable(services):
     app = services.get('app_svc').application
-    compass_svc = CompassService(services)
-    app.router.add_route('POST', '/plugin/compass/layer', compass_svc.generate_layer)
-    app.router.add_route('POST', '/plugin/compass/adversary', compass_svc.create_adversary_from_layer)
-    app.router.add_route('GET', '/plugin/compass/gui', compass_svc.splash)
+    svc = AlmanacService(services)
+    app.router.add_route('POST', '/plugin/almanac/layer', svc.generate_layer)
+    app.router.add_route('POST', '/plugin/almanac/adversary', svc.create_adversary_from_layer)
+    app.router.add_route('GET', '/plugin/almanac/gui', svc.splash)
