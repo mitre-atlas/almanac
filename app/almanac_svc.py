@@ -24,10 +24,10 @@ class AlmanacService:
     @staticmethod
     def _get_layer_boilerplate(name, description):
         return dict(
-            version='4.2',
+            version='4.3',
             name=name,
             description=description,
-            domain='atlas-v2-+-enterprise-v9-atlas',
+            domain='atlas-atlas',
             techniques=[],
             legendItems=[],
             showTacticRowBackground=True,
